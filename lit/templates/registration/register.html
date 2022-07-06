@@ -2,14 +2,8 @@
 
 {% block content %}
 <div class="flex h-full" style="height: calc(100vh - 4rem);">
-    <div class="grow flex flex-col items-center h-full justify-center">
-        <h2 class="text-2xl font-bold mb-6">Enregistrez-vous</h2>
-        <a href="/register" class="bg-green-800 text-white p-2 rounded-md border-2 border-green-800 hover:border-green-500 cursor-pointer">
-            S'enregistrer
-        </a>
-    </div>
     <form action="" method="post" class="grow flex flex-col items-center h-full justify-center">
-        <h2 class="text-2xl font-bold mb-6">Connectez-vous</h2>
+        <h2 class="text-2xl font-bold mb-6">Enregistrez-vous</h2>
         {% csrf_token %}
         <div>
             <label for="username">Nom d'utilisateur</label>
@@ -24,8 +18,17 @@
             </div>
         </div>
         <div>
+            <label for="password">Répétition du mot de passe</label>
+            <div>
+                <input class="p-2 rounded-md focus-visible:border-10 border-2 border-green-800 hover:border-green-500" type="password" name="password" id="password" placeholder="Mot de passe">
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <a href="/login" class="bg-gray-100 p-2 rounded-md mt-6 border-2 border-green-800 hover:border-green-500 cursor-pointer">
+                Retour
+            </a>
             <div class="bg-green-800 text-white p-2 rounded-md mt-6 border-2 border-green-800 hover:border-green-500 cursor-pointer">
-                <button type="submit" class="btn">Connexion</button>
+                <button type="submit" class="btn">S'enregistrer</button>
             </div>
         </div>
     </form>
