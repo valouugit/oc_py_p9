@@ -72,7 +72,6 @@ def flux(request: WSGIRequest):
 def ticket_add(request: WSGIRequest):
     if request.method == "POST":
         form = TicketAdd(request.POST, request.FILES)
-        print(form.is_valid())
         if form.is_valid():
             form.save(request)
 

@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="flex flex-col justify-center items-center" style="height: calc(100vh - 4rem);">
-        <h2 class="text-2xl font-bold m-4">Nouveau ticket</h2>
+        <h2 class="text-2xl font-bold m-4">Demander une critique</h2>
         <form class="flex flex-col" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form_ticket_add }}

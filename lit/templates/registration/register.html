@@ -5,24 +5,6 @@
     <form action="/register/" method="post" class="grow flex flex-col items-center h-full justify-center">
         <h2 class="text-2xl font-bold mb-6">Enregistrez-vous</h2>
         {% csrf_token %}
-        <!-- <div>
-            <label for="id_username">Nom d'utilisateur</label>
-            <div>
-                <input class="p-2 rounded-md focus-visible:border-10 border-2 border-green-800 focus-visible:border-green-500" type="text" id="id_username" name="username"  placeholder="Nom d'utilisateur">
-            </div>
-        </div>
-        <div>
-            <label for="id_password1">Mot de passe</label>
-            <div>
-                <input class="p-2 rounded-md focus-visible:border-10 border-2 border-green-800 hover:border-green-500" type="password" name="id_password1" id="id_password1" placeholder="Mot de passe">
-            </div>
-        </div>
-        <div>
-            <label for="id_password2">Répétition du mot de passe</label>
-            <div>
-                <input class="p-2 rounded-md focus-visible:border-10 border-2 border-green-800 hover:border-green-500" type="password" name="id_password2" id="id_password2" placeholder="Mot de passe">
-            </div>
-        </div> -->
         {% for hidden in form.hidden_fields %}
             { hidden }}
         {% endfor %}
