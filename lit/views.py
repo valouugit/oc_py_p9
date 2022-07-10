@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 
 from lit.form.follow import Follow
 from lit.form.register import RegisterForm
+from lit.form.ticket_add import TicketAdd
 from lit.form.unfollow import Unfollow
-from lit.models import UserFollows
+from lit.models import Ticket, UserFollows
 
 
 @login_required
@@ -22,10 +23,6 @@ def register(request: WSGIRequest):
             return redirect("/")
 
     return render(request, "registration/register.html", context={"form":RegisterForm})
-
-@login_required
-def flux(request):
-    return render(request, "lit/index.html")
 
 @login_required
 def follow(request: WSGIRequest):
@@ -60,4 +57,25 @@ def follow(request: WSGIRequest):
         "follows": follows,
         "error": error,
         "success": success
+    })
+
+@login_required
+def flux(request: WSGIRequest):
+    followers = UserFollows.objects.filter(user=request.user)
+    follows = UserFollows.objects.filter(followed_user=request.user)
+    print(follows.query)
+    return render(request, "lit/flux.html", context={
+        # "posts": posts
+    })
+
+@login_required
+def ticket_add(request: WSGIRequest):
+    if request.method == "POST":
+        form = TicketAdd(request.POST, request.FILES)
+        print(form.is_valid())
+        if form.is_valid():
+            form.save(request)
+
+    return render(request, "lit/ticket/ticket_add.html", context={
+        "form_ticket_add": TicketAdd
     })
