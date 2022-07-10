@@ -1,0 +1,36 @@
+{% extends 'lit/base.html' %}
+
+{% block content %}
+    {% if error %}
+        {% include 'lit/components/error.html' %}
+    {% endif %}
+    {% if success %}
+        {% include 'lit/components/success.html' %}
+    {% endif %}
+    <div class="flex justify-center flex-col" style="height: calc(100vh - 4rem)">
+        <div class="flex items-center flex-col">
+            <h2 class="text-2xl font-bold">Suivre un utilisateur</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form_follow }}
+                <input type="submit" value="Suivre" class="bg-green-800 text-white p-2 rounded-md mt-6 border-2 border-green-800 hover:border-green-500 cursor-pointer">
+            </form>
+        </div>
+        <div class="flex items-center flex-col">
+            <h2 class="text-2xl font-bold m-4">Abonnements</h2>
+            {% for follow in follows %}
+                <div>
+                    {{ follow.user }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="flex items-center flex-col">
+            <h2 class="text-2xl font-bold m-4">Abonnés</h2>
+            {% for follower in followers %}
+                <div>
+                    {{ follower.followed_user }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
