@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from lit.form.follow import Follow
 from lit.form.register import RegisterForm
+from lit.form.unfollow import Unfollow
 from lit.models import UserFollows
 
 
@@ -32,6 +33,7 @@ def follow(request: WSGIRequest):
     success = None
     if request.method == "POST":
         form_follow = Follow(request.POST)
+        form_unfollow = Unfollow(request.POST)
         if form_follow.is_valid():
             try:
                 user = User.objects.get(username=form_follow.cleaned_data["follow"])
@@ -40,11 +42,20 @@ def follow(request: WSGIRequest):
                 success = f"Vous suivez désormais {form_follow.cleaned_data['follow']}"
             except:
                 error = f"L'utilisateur {form_follow.cleaned_data['follow']} n'existe pas"
+        elif form_unfollow.is_valid():
+            try:
+                user = User.objects.get(username=form_unfollow.cleaned_data["unfollow"])
+                follow_relation = UserFollows.objects.get(user=user, followed_user=request.user)
+                follow_relation.delete()
+                success = f"Vous ne suivez plus {user}"
+            except:
+                error = f"L'utilisateur {form_follow.cleaned_data['follow']} n'existe pas"
 
     followers = UserFollows.objects.filter(user=request.user)
     follows = UserFollows.objects.filter(followed_user=request.user)
     return render(request, "lit/follow.html", context={
         "form_follow": Follow,
+        "form_unfollow": Unfollow,
         "followers": followers,
         "follows": follows,
         "error": error,

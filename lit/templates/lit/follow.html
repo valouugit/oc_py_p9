@@ -16,20 +16,23 @@
                 <input type="submit" value="Suivre" class="bg-green-800 text-white p-2 rounded-md mt-6 border-2 border-green-800 hover:border-green-500 cursor-pointer">
             </form>
         </div>
-        <div class="flex items-center flex-col">
+        <div class="flex items-center flex-col gap-3">
             <h2 class="text-2xl font-bold m-4">Abonnements</h2>
             {% for follow in follows %}
-                <div>
-                    {{ follow.user }}
+                <div class="flex">
+                    <div class="p-2 rounded-l-md border-2 border-green-800">{{ follow.user }}</div>
+                    <form method="post" class="m-0">
+                        {% csrf_token %}
+                        <input type="hidden" name="unfollow" id="{{ form_unfollow.unfollow.id_for_label }}" value="{{ follow.user }}">
+                        <input type="submit" value="Ne plus suivre" class="bg-green-800 text-white p-2 rounded-r-md border-2 border-green-800 hover:bg-green-600 cursor-pointer">
+                    </form>
                 </div>
             {% endfor %}
         </div>
-        <div class="flex items-center flex-col">
+        <div class="flex items-center flex-col gap-3">
             <h2 class="text-2xl font-bold m-4">Abonnés</h2>
             {% for follower in followers %}
-                <div>
-                    {{ follower.followed_user }}
-                </div>
+                <div class="p-2 rounded-md border-2 border-green-800">{{ follower.followed_user }}</div>
             {% endfor %}
         </div>
     </div>
